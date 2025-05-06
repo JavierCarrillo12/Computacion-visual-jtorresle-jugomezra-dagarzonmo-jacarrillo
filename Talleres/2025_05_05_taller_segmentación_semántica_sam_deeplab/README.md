@@ -49,8 +49,7 @@ Aplicación semántica para identificar y extraer regiones específicas dentro d
 
 ## 🧩 Prompts Usados
 
-```NO aplica
-```
+NO aplica
 
 ---
 
