@@ -62,7 +62,7 @@ Al comparar diferentes métodos de segmentación, se puede observar que cada uno
 
 ## ✅ Checklist de Entrega
 
-- [x] Carpeta `2025-04-30_taller_algoritmos_rasterizacion_basica`
+- [x] Carpeta `Talleres/2025_05_05_taller_segmentación_semántica_sam_deeplab`
 - [x] Código limpio y funcional
 - [ ] GIF incluido con nombre descriptivo (no requerido en esta versión)
 - [x] Visualizaciones 
