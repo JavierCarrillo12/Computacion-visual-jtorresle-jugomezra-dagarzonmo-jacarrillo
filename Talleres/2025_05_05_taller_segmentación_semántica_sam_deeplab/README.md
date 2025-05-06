@@ -40,10 +40,10 @@ Aplicación semántica para identificar y extraer regiones específicas dentro d
 ---
 
 ## 📊 Imagen original
-![alt text](./imagenes_entrada/monserrate.jpg)
+![alt text](./Imagenes_entrada/monserrate.jpg)
 
 ## 📊 Imagen salida
-![alt text](./imagenes_salida/result.jpg)
+![alt text](./imagenes_salida/result.png)
 
 ---
 
