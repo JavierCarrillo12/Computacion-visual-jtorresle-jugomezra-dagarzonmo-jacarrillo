@@ -40,10 +40,10 @@ Aplicación semántica para identificar y extraer regiones específicas dentro d
 ---
 
 ## 📊 Imagen original
-![alt text]([Talleres/2025_05_05_taller_segmentación_semántica_sam_deeplab/Imagenes_entrada](https://github.com/JavierCarrillo12/Computacion-visual-jtorresle-jugomezra-dagarzonmo-jacarrillo/blob/main/Talleres/2025_05_05_taller_segmentaci%C3%B3n_sem%C3%A1ntica_sam_deeplab/Imagenes_entrada/monserrate.jpg?raw=true))
+![alt text](./imagenes_entrada/monserrate.jpg)
 
 ## 📊 Imagen salida
-![alt text](Talleres/2025_05_05_taller_segmentación_semántica_sam_deeplab/imagenes_salida/result.png)
+![alt text](./imagenes_salida/result.jpg)
 
 ---
 
