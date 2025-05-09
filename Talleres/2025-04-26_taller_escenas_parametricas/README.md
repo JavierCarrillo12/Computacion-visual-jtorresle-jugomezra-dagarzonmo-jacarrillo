@@ -51,6 +51,34 @@ Partiendo de una lista de coordenadas (ya sea definida a mano o leída desde un 
 
 ![Threejs-Gneración-de-objetos](https://github.com/user-attachments/assets/c3c85e6b-feb3-4bac-9a8d-4c87a5bce372)
 
+# Unity
+
+## GIF
+
+![WhatsApp-Video-2025-05-08-at-10 01 12-PM](https://github.com/user-attachments/assets/a1912533-1eb7-4816-8218-c190c9741ac0)
+
+
+1. **Clase ObjectData:**
+
+Almacena parámetros serializables para cada objeto.
+
+[System.Serializable] permite editar los datos en el Inspector.
+
+2. **Lista objectsToSpawn:**
+
+Contiene todos los objetos a generar.
+
+Configurable desde el Inspector sin modificar el código.
+
+3. **Método GenerateObjects():**
+
+Itera sobre la lista de objetos.
+
+4. **CreatePrimitive(): Genera el objeto 3D según el tipo especificado.**
+
+material.color: Asigna el color usando un material estándar.
+
+
 # PROMPTS USADOS
 
 A nivel general se solicitó que se ayudara en la generación y comentación de código para poder entender la tarea realizada en cada uno se pasaron los requerimientos del programa y el lenguaje en el cual se debía desarrollar
