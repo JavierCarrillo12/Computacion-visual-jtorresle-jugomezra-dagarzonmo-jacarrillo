@@ -79,5 +79,24 @@ En un lienzo (`canvas`) basado en NumPy, se dibujan:
 * Facilita el manejo de arrays de imagen.
 * Se usa para cálculos como la distancia euclidiana entre dos landmarks.
 
+## Link al notebook
+
+https://drive.google.com/file/d/1o3m8oVNNwgFL0sIKDTo6NoreYwVpUKeh/view?usp=sharing
+
+## GIF de funcionamiento
+
+![Vídeo-sin-título-‐-Hecho-con-Clipchamp-_1_](https://github.com/user-attachments/assets/601e3f5c-58a8-40d1-ae4b-4f7a64a11556)
+
+## Descripción general de los prompts usados
+
+En general se solicitó comentar el código y la generación del mismo usando las bibliotecas especificadas, además se pidío una explicación extra textual profunda del funcionamiento
+
+## Mejoras y reflexiones posibles
+
+Lo que demuestra el taller es el aprovechamiento de las bibliotecas existentes para realizar funciones sencillas pero útiles que pueden extenderse a un funcionamiento más complejo, una mejora sería conectar el volumen a la distancia existente entre los dedos.
+
+
+
+
 
 
