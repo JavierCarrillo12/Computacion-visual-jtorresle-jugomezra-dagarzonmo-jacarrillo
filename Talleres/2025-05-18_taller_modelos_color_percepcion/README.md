@@ -13,6 +13,11 @@
 * **Value (valor o brillo)**: luminancia del color de 0 % (negro) a 100 % (color al máximo de brillo).
 * Separar la tonalidad de la saturación y brillo facilita ajustes como cambiar solo el matiz o el nivel de luz sin alterar la intensidad del color.
 
+![image](https://github.com/user-attachments/assets/1b30242e-fcb9-478c-b3f6-a91cf3d72275)
+
+![image](https://github.com/user-attachments/assets/a3a3c3e4-0163-4f83-b3fb-3e8aa6690c11)
+
+
 ### CIE Lab (Luminosity – a – b)
 
 * Diseñado para ser perceptualmente uniforme: cambios iguales en cualquiera de sus tres ejes resultan en variaciones visualmente similares.
@@ -20,6 +25,10 @@
 * **a**: eje que va de verde (valores negativos) a rojo (positivos).
 * **b**: eje que va de azul (negativos) a amarillo (positivos).
 * Útil para procesamientos avanzados de color donde la percepción humana debe considerarse, como corrección de color y análisis de imágenes.
+
+![image](https://github.com/user-attachments/assets/f811ff9a-b385-44d8-b1f6-6e66540e0fdf)
+
+![image](https://github.com/user-attachments/assets/b61ce910-b695-4438-a8f0-09199cfa29be)
 
 ---
 
@@ -31,17 +40,26 @@
 * Produce un efecto tipo “negativo fotográfico”.
 * Se usó para demostrar manipulaciones directas y crear contrastes extremos.
 
+![image](https://github.com/user-attachments/assets/49404bda-f01a-4957-97d4-6711c894ffd9)
+
+
 ### 2. Conversión a Monocromo
 
 * Se calcula un único canal de luminancia (grises) a partir de RGB.
 * Facilita el análisis de textura y luminosidad sin preocuparse por el matiz o saturación.
 * Ideal para procesamientos donde el color no aporta información adicional (p. ej. detección de bordes).
 
+![image](https://github.com/user-attachments/assets/f98451b5-73f2-4775-98dd-0601630e914f)
+
+
 ### 3. Ajustes de Brillo y Contraste
 
 * **Brillo**: se suma o resta un valor constante a cada componente para aclarar u oscurecer la imagen.
 * **Contraste**: se multiplica cada componente por un factor (>1 para aumentar, <1 para disminuir).
 * Permite optimizar la visibilidad de detalles en zonas muy claras u oscuras.
+
+![image](https://github.com/user-attachments/assets/635bb713-589f-4d40-943b-88a2aab02d9b)
+
 
 ### 4. Simulaciones de Daltonismo
 
@@ -51,11 +69,16 @@
   * **Deuteranopia** (deficiencia en el verde).
 * Mostró cómo personas con estos tipos de daltonismo verían la misma escena.
 
+![image](https://github.com/user-attachments/assets/6dbf5fc9-66b8-40a2-8dd0-ddae789c2b64)
+
+
 ---
 
 ## Función de Alternancia de Color
 
 Se diseñó una función genérica que, según un parámetro — por ejemplo `"invertir"` o `"monocromo"` — aplica la transformación adecuada sobre la imagen original. Esto centraliza la lógica de todos los efectos y simplifica su invocación.
+
+![Funcion_cambio_de_modelo](https://github.com/user-attachments/assets/d82c54fa-26dd-49b1-ae30-0d8a5f54c033)
 
 ---
 
@@ -69,6 +92,17 @@ Para facilitar la exploración de las distintas simulaciones, se integró un sel
 
 ---
 
+## Link al notebook
+
+https://colab.research.google.com/drive/1TxFw-FHxXiGiNmwI4b4iZLgOUxrOeh4h?authuser=6
+
+---
+
+## Prompts
+
+En general se solicitó ayuda explicando las bibliotecas y funciones necesarias para realizar las transformaciones, en especial en la simulación de protanopia y Deuteranopia se solicitó la matriz necesaria para realizar el cambio, además para obtener una comprension más profunda se solicit´un texto explicativo que nos permitío entender mejor las transformaciones
+
+---
 ### Conclusión
 
 Este conjunto de pruebas demuestra:
