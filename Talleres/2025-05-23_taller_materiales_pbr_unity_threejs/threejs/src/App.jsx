@@ -1,134 +1,111 @@
-import { Canvas, useFrame } from '@react-three/fiber'
-import { Html, OrbitControls } from '@react-three/drei'
-import { useState, useEffect, useRef } from 'react'
-import { Leva, useControls } from 'leva'
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls, useTexture } from '@react-three/drei'
+import { useRef, useState } from 'react'
 import * as THREE from 'three'
 import './App.css'
 
-// Main interactive box component
-function Box() {
-  const meshRef = useRef()
-  const [position, setPosition] = useState([0, 0, 0])
-  const [active, setActive] = useState(false)
+function Scene({ roughness, metalness }) {
+  const boxRef = useRef()
+  const sphereRef = useRef()
 
-  // Minimal controls: color, speed, scale
-  const { scale, color, speed } = useControls({
-    scale: { value: 1, min: 0.5, max: 3, step: 0.1, label: 'Scale' },
-    speed: { value: 1, min: 0.1, max: 5, step: 0.1, label: 'Speed' },
-    color: { value: '#4a90e2', label: 'Color' }
+  // Cargar texturas PBR
+  const textures = useTexture({
+    map: '/textures/Ground085_1K-JPG_Color.jpg',        // Textura de color/difusa
+    roughnessMap: '/textures/Ground085_1K-JPG_Roughness.jpg', // Textura de rugosidad
+    // metalnessMap: '/textures/Ground085_1K-JPG_Metalness.jpg', // No hay mapa de metalicidad en este conjunto, se usa el control de la UI
+    normalMap: '/textures/Ground085_1K-JPG_NormalGL.jpg',    // Textura normal (OpenGL)
+    // ambientOcclusionMap: '/textures/Ground085_1K-JPG_AmbientOcclusion.jpg', // Mapa de Ambient Occlusion (opcional)
+    // displacementMap: '/textures/Ground085_1K-JPG_Displacement.jpg', // Mapa de Displacement (requiere geometría con subdivisiones)
   })
-
-  // Mouse movement tracking for box rotation
-  useFrame(({ pointer }) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y = pointer.x * Math.PI * speed
-      meshRef.current.rotation.x = pointer.y * Math.PI * speed
-    }
-  })
-
-  // Keyboard controls
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      switch(e.key.toLowerCase()) {
-        case 'r': // Reset position
-          setPosition([0, 0, 0])
-          break
-        case 'arrowup': // Move up
-          setPosition(prev => [prev[0], prev[1] + 0.5, prev[2]])
-          break
-        case 'arrowdown': // Move down
-          setPosition(prev => [prev[0], prev[1] - 0.5, prev[2]])
-          break
-      }
-    }
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [])
 
   return (
-    <mesh
-      ref={meshRef}
-      position={position}
-      scale={scale}
-      onClick={() => setActive(!active)}
-    >
-      <boxGeometry />
-      <meshStandardMaterial 
-        color={active ? '#ff6b6b' : color}
-        metalness={0.5}
-        roughness={0.2}
-      />
-      <lineSegments>
-        <edgesGeometry args={[new THREE.BoxGeometry(1, 1, 1)]} />
-        <lineBasicMaterial color="black" />
-      </lineSegments>
-      
-      {/* Interactive UI elements */}
-      <Html position={[0, 1.2, 0]} center>
-        <div className="ui-container">
-          <div className="ui-info">
-            Click box to change color
-          </div>
-        </div>
-      </Html>
-    </mesh>
+    <>
+      {/* Luces */}
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[5, 5, 5]} intensity={1} />
+
+      {/* Piso */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1, 0]}>
+        <planeGeometry args={[10, 10]} />
+        <meshStandardMaterial color="#808080" />
+      </mesh>
+
+      {/* Objeto con material PBR */}
+      <mesh ref={boxRef} position={[-1.5, 0, 0]}>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshPhysicalMaterial
+          {...textures}
+          roughness={roughness}
+          metalness={metalness}
+          envMapIntensity={1}
+        />
+      </mesh>
+
+      {/* Objeto con material básico para comparación */}
+      <mesh ref={sphereRef} position={[1.5, 0, 0]}>
+        <sphereGeometry args={[0.5, 32, 32]} />
+        <meshBasicMaterial color="#ff0000" />
+      </mesh>
+
+      {/* Controles de órbita */}
+      <OrbitControls />
+    </>
   )
 }
 
-// Main App component
-export default function App() {
+function App() {
+  const [roughness, setRoughness] = useState(0.5)
+  const [metalness, setMetalness] = useState(0.5)
+
   return (
-    <div className="app-container">
-      <Canvas camera={{ position: [0, 0, 5] }}>
-        <color attach="background" args={['#ffffff']} />
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={1} />
-        <Box />
-        <OrbitControls />
+    <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
+      <Canvas camera={{ position: [0, 2, 5], fov: 75 }}>
+        <Scene roughness={roughness} metalness={metalness} />
       </Canvas>
       
-      {/* Side Menu */}
-      <div className="side-menu minimal open">
-        <h2 className="side-menu-title">Controls</h2>
-        <Leva 
-          collapsed={false}
-          fill
-          hideCopyButton
-          hideResetButton
-          theme={{
-            colors: {
-              accent1: '#4a90e2',
-              accent2: '#357abd',
-              accent3: '#2c3e50',
-              elevation1: 'transparent',
-              elevation2: 'transparent',
-              elevation3: 'transparent',
-              highlight1: '#fff',
-              highlight2: '#fff',
-              highlight3: '#fff',
-              foreground: '#fff',
-              toolTipBackground: '#222',
-            },
-            sizes: {
-              titleBarHeight: '0px',
-              controlWidth: '180px',
-              rowHeight: '32px',
-            },
-            radii: {
-              xs: '4px',
-              sm: '6px',
-              lg: '8px',
-            },
-            space: {
-              sm: '8px',
-              md: '14px',
-              rowGap: '10px',
-              colGap: '10px',
-            },
-          }}
-        />
+      {/* Panel de control simple */}
+      <div style={{
+        position: 'absolute',
+        top: '20px',
+        left: '20px',
+        background: 'rgba(0, 0, 0, 0.8)',
+        padding: '20px',
+        borderRadius: '8px',
+        color: 'white'
+      }}>
+        <h3 style={{ marginBottom: '10px' }}>Controles de Material</h3>
+        <div style={{ marginBottom: '10px' }}>
+          <label style={{ display: 'block', marginBottom: '5px' }}>
+            Rugosidad: {roughness.toFixed(2)}
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={roughness}
+            onChange={(e) => setRoughness(parseFloat(e.target.value))}
+            style={{ width: '200px' }}
+          />
+        </div>
+        <div>
+          <label style={{ display: 'block', marginBottom: '5px' }}>
+            Metalicidad: {metalness.toFixed(2)}
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={metalness}
+            onChange={(e) => setMetalness(parseFloat(e.target.value))}
+            style={{ width: '200px' }}
+          />
+        </div>
       </div>
     </div>
   )
 }
+
+export default App
 
