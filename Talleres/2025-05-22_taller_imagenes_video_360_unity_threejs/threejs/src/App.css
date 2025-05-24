@@ -1,0 +1,282 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+}
+
+.app {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+}
+
+.controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 15px 30px;
+  color: white;
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.controls.hidden {
+  transform: translateY(100%);
+}
+
+.controls h1 {
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
+  margin: 0;
+}
+
+.subtitle {
+  display: none;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+  margin: 0;
+  justify-content: center;
+}
+
+.buttons button {
+  flex: 0 1 auto;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  min-width: 120px;
+}
+
+.buttons button .icon {
+  font-size: 1.1rem;
+}
+
+.buttons button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.buttons button.active {
+  background: #4a90e2;
+  box-shadow: 0 0 20px rgba(74, 144, 226, 0.5);
+}
+
+.image-controls {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.image-nav-btn {
+  flex: 0 1 auto;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 8px;
+  background: #4a90e2;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.image-nav-btn .icon {
+  font-size: 1.2rem;
+}
+
+.image-nav-btn .counter {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.image-nav-btn:hover {
+  background: #357abd;
+  transform: translateY(-2px);
+}
+
+.current-image {
+  color: #fff;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.instructions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 0;
+}
+
+.instructions h3 {
+  display: none;
+}
+
+.control-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.control-item .icon {
+  font-size: 1rem;
+}
+
+.control-item p {
+  margin: 0;
+  color: #fff;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.ui-toggle-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  font-size: 1.1rem;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.ui-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+.ui-toggle-btn.ui-hidden {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Loading styles */
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 50;
+}
+
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 4px solid #fff;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .controls {
+    padding: 12px 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .controls h1 {
+    display: none;
+  }
+
+  .buttons {
+    order: -1;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .image-controls {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .instructions {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .controls {
+    padding: 10px;
+  }
+
+  .buttons button {
+    padding: 8px 15px;
+    font-size: 0.85rem;
+    min-width: 100px;
+  }
+
+  .image-nav-btn {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+
+  .control-item p {
+    font-size: 0.8rem;
+  }
+}
