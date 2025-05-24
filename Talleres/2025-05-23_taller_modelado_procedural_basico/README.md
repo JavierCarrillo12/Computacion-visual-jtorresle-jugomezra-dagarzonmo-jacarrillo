@@ -24,8 +24,7 @@ Lista los principales conceptos aplicados:
 
 ## 🔧 Herramientas y Entornos
 
-- Python (`boxGeometry`, `sphereGeometry`, `bufferGeometry`, `userFrame`, etc.)
-- Three.js / React Three Fiber
+- Three.js / React Three Fiber(`boxGeometry`, `sphereGeometry`, `bufferGeometry`, `userFrame`, etc.)
 
 ---
 
