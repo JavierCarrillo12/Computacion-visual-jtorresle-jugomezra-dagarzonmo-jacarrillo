@@ -87,8 +87,8 @@ function AnimatedGeometry() {
 
 ## 🧩 Comentario final
 
-```text
-"Modelar con código crea formas automáticamente y permite animaciones dinámicas, ideal para patrones repetitivos. Modelar a mano es manual y preciso, útil para detalles específicos. Código es eficiente y flexible; a mano, más artístico y controlado."
+```
+"Modelar con código crea formas automáticamente y permite animaciones dinámicas, ideal para patrones repetitivos. Modelar a mano es útil para detalles específicos. Código es eficiente y flexible; a mano, más controlado."
 ```
 
 ## ✅ Checklist de Entrega
