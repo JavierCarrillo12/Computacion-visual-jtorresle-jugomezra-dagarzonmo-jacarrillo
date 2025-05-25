@@ -94,7 +94,7 @@ attention = (eeg_alpha**2 > threshold).astype(int)
 
 ![Captura de pantalla 2025-05-25 163537](https://github.com/user-attachments/assets/30caee61-043e-4ea2-b4b2-58bab0d9c960)
 
-
+---
 ## 🧩 Prompts Usados
 
 ```text
@@ -108,8 +108,8 @@ attention = (eeg_alpha**2 > threshold).astype(int)
 
 ## 💬 Reflexión Final
 
-En este taller aprendí a integrar un dataset real de EEG, aplicar filtros digitales y diseñar un umbral dinámico para traducir actividad cerebral en acciones de control visual. Fue especialmente interesante ver cómo la potencia en banda Alpha se asocia con el estado de los ojos y cómo un simple percentil puede servir de disparador para un indicador binario.
+En este taller aprendimos a integrar un dataset real de EEG, aplicar filtros digitales y diseñar un umbral dinámico para traducir actividad cerebral en acciones de control visual. Fue especialmente interesante ver cómo la potencia en banda Alpha se asocia con el estado de los ojos y cómo un simple percentil puede servir de disparador para un indicador binario.
 
-El reto más complejo fue lidiar con artefactos y picos inesperados en la señal, que obligaron a pensar en filtros robustos y preprocesamiento adicional. En futuros proyectos añadiré mecanismos de detección y supresión de artefactos (p. ej. interpolación de valores atípicos) y exploraré técnicas de machine learning para mejorar la fiabilidad del umbral.
+El reto más complejo fue lidiar con artefactos y picos inesperados en la señal, que obligaron a pensar en filtros robustos y preprocesamiento adicional. En futuros proyectos sería bueno añadir mecanismos de detección y supresión de artefactos (p. ej. interpolación de valores atípicos) y explorar técnicas de machine learning para mejorar la fiabilidad del umbral.
 
-Además, implementar un GIF animado clarificó la necesidad de narrar visualmente los resultados en un informe. Para próximas iteraciones usaré `imageio` o bibliotecas especializadas para generar animaciones aún más claras y persuasivas.
+Además, implementar un GIF animado clarificó la necesidad de narrar visualmente los resultados en un informe. Para próximas iteraciones sería bueno usar `imageio` o bibliotecas especializadas para generar animaciones aún más claras y persuasivas.
