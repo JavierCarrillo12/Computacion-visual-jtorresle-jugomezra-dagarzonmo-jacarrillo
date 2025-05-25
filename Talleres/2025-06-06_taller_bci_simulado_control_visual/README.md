@@ -86,6 +86,13 @@ attention = (eeg_alpha**2 > threshold).astype(int)
 
 ## 📊 Resultados Visuales
 
+![Captura de pantalla 2025-05-25 163423](https://github.com/user-attachments/assets/a43eb6b9-97de-4579-a13b-a6101a35d34f)
+
+![Captura de pantalla 2025-05-25 163518](https://github.com/user-attachments/assets/c708ca5e-2870-493f-a9d1-e19ec7b3afc2)
+
+![Captura de pantalla 2025-05-25 163531](https://github.com/user-attachments/assets/bf3634d7-8704-448c-88f3-aca5cec34a29)
+
+![Captura de pantalla 2025-05-25 163537](https://github.com/user-attachments/assets/30caee61-043e-4ea2-b4b2-58bab0d9c960)
 
 
 ## 🧩 Prompts Usados
