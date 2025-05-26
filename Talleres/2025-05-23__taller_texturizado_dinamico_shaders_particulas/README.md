@@ -1,4 +1,4 @@
-# 🧪 Taller - UV Mapping: Texturas que Encajan.
+# 🧪 Taller - Texturizado dinámico con shaders y datos.
 
 ## 📅 Fecha
 `2025-05-23` – Fecha de realización
@@ -7,31 +7,29 @@
 
 ## 🎯 Objetivo del Taller
 
-El objetivo es explorar el mapeo UV como técnica fundamental para aplicar correctamente texturas 2D sobre modelos 3D sin distorsión. El objetivo es entender cómo se proyectan las texturas y cómo se pueden ajustar las coordenadas UV para mejorar el resultado visual.
-
+Crear materiales que cambien en tiempo real en respuesta a entrada del usuario, paso del tiempo o sensores simulados. Además, se integrarán efectos de partículas para complementar visualmente el comportamiento del material, simulando fenómenos como fuego, agua, electricidad o portales.
 ---
 
 ## 🧠 Conceptos Aprendidos
 
 Lista los principales conceptos aplicados:
 
-- [x] Proyectar una imagen 2D sobre un modelo 3D para texturizarlo.
-- [x] Sistema de coordenadas para mapear una textura a la superficie de un objeto 3D.
-- [x] Aplicar textura 2D a un modelo 3D.
-- [x] Técnica de dividir la geometría 3d en un "mapa plano" para aplicar textura.
+- [x] Crear un shader con `shaderMaterial` y uniforms animados
+- [x] Usar `useFrame` para animar propiedades por tiempo o interacción
+- [x] Construir un sistema de partículas con `points` y `bufferGeometry`
 
 ---
 
 ## 🔧 Herramientas y Entornos
 
-- Three.js / React Three Fiber (`TextureLoader`, `MeshStandardMaterial`)
+- Three.js / React Three Fiber (`TextureLoader`, `shaderMaterial`,`bufferGeometry`)
 
 ---
 
 ## 📁 Estructura del Proyecto
 
 ```
-2025-05-24_taller_uv_mapping_texturas
+2025-05-24_taller_texturizado_dinámico_shaders_particulas
 ├── threejs/
 ├── README.md
 ```
@@ -42,62 +40,113 @@ Lista los principales conceptos aplicados:
 Explica el proceso:
 
 ### 🔹 Etapas realizadas
-1. Preparación de la escena y entorno.
-2. Cargar y preparar el modelo 3D.
-3. Aplicar la textura 2D al modelo.
-4. Ajustar la proyección de la textura.
+1. Configuración del proyecto con React Three Fiber y Vite
+2. Creación de la escena 3D con objeto central
+3. Implementación del sistema de partículas dinámicas alrededor del objeto
 
 ### 🔹 Código relevante
 
 ```python
-# Textura 2D sobre un modelo 3D
-import { Canvas, useLoader } from '@react-three/fiber';
-import { TextureLoader } from 'three/src/loaders/TextureLoader';
-import { OrbitControls } from '@react-three/drei';
-
-function TexturedBox() {
-  const texture = useLoader(TextureLoader, '/brick_crosswalk_diff_4k.jpg');
-
+# Configuración de canvas con escena básica
+function Scene() {
   return (
-    <mesh position={[0, 0, 0]}>
-      <boxGeometry args={[5, 5, 5]} />
-      <meshStandardMaterial map={texture} />
-    </mesh>
-  );
-}
-
-export default function App() {
-  return (
-    <Canvas style={{ width: '100vw', height: '100vh', display: 'block' }} camera={{ position: [0, 5, 15], fov: 50 }}>
-      <ambientLight intensity={0.7} />
-      <directionalLight position={[10, 10, 10]} intensity={1} />
-      <TexturedBox />
+    <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[5, 5, 5]} intensity={1} />
+      <AnimatedShaderSphere />
+      <ParticleSystem />
       <OrbitControls />
     </Canvas>
-  );
+  )
+}
+
+```
+```python
+# Shader personalizado para la esfera animada.
+const MyShaderMaterial = shaderMaterial(
+  { uTime: 0, uColor: new THREE.Color(0.2, 0.5, 1.0) },
+  `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      vec3 pos = position;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+    }
+  `,
+  `
+    uniform float uTime;
+    uniform vec3 uColor;
+    varying vec2 vUv;
+    void main() {
+      float brightness = sin(uTime + vUv.x * 10.0) * 0.5 + 0.5;
+      gl_FragColor = vec4(uColor * brightness, 1.0);
+    }
+  `
+)
+
+```
+```python
+# Partículas alrededor del objeto usando Points y BufferGeometry
+function ParticleSystem({ count = 500 }) {
+  const pointsRef = useRef()
+  const positions = new Float32Array(count * 3)
+  for (let i = 0; i < count; i++) {
+    const radius = 1.5 + Math.random() * 0.5
+    const angle = Math.random() * Math.PI * 2
+    const y = (Math.random() - 0.5) * 1.5
+    positions.set([
+      Math.cos(angle) * radius,
+      y,
+      Math.sin(angle) * radius
+    ], i * 3)
+  }
+
+  useFrame(() => {
+    pointsRef.current.rotation.y += 0.001
+  })
+
+  return (
+    <points ref={pointsRef}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          count={count}
+          array={positions}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <pointsMaterial
+        size={0.05}
+        color="white"
+        sizeAttenuation
+        depthWrite={false}
+      />
+    </points>
+  )
 }
 ```
 
 ## 📊 Resultados Visuales
+![Escena básica](https://github.com/user-attachments/assets/727f6437-bea8-4a89-81cc-058e88a96e78)
+![Cambio dinámico con el movimiento del mouse](https://github.com/user-attachments/assets/8a17a23b-7143-4250-8c1e-b9222c1b0d37)
+![Esfera animada con shaders y un campo de particulas](https://github.com/user-attachments/assets/18c79a1e-6f8e-499f-b695-c2719c7a6b05)
 
-![Modelo 3D cargado usando react-three-drei](https://github.com/user-attachments/assets/5763bddf-1946-4edb-babc-494d11be6e21)
-![Aplicación de Textura 2D](https://github.com/user-attachments/assets/9aceb8c6-62d7-4af4-987b-4932ed28f7da)
 
 
-```
-
-## 🧩 Comentario final
 
 ```
-"Si fue necesario ajustar las coordenadas UV en algunos casos para asegurar que las texturas se aplicaran de manera correcta. En modelos con coordenadas mal ajustadas, las texturas se veían distorsionadas, mientras que con coordenadas correctamente ajustadas, la textura se aplicaba de forma más precisa y natural sobre la geometría del modelo."
 
+## 🧩 Reflexión
+
+```
+"¿Cuál fue el efecto más interesante o difícil de lograr?"
+"El efecto más interesante fue la animación del color y brillo del shader personalizado, ya que logra un efecto visual dinámico y cambiante."
 ```
 
 ## ✅ Checklist de Entrega
 
-- [x] Carpeta `2025_05_24_uv_mapping_texturas`
+- [x] Carpeta `2025_05_24_taller_dinamico_shaders_particulas`
 - [x] Código limpio y funcional
-- [x] GIF incluido con nombre descriptivo (si el taller lo requiere)
-- [x] Visualizaciones.
+- [x] GIFs incluidos con nombre descriptivo
 - [x] README completo y claro
 ---
