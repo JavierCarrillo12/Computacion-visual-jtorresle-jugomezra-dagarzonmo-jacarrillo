@@ -3,6 +3,16 @@
 Este proyecto simula un mundo estilo Minecraft utilizando `@react-three/fiber` y `three.js`. El terreno, los árboles, animales y decoraciones se generan proceduralmente con funciones personalizadas. La cámara y controles permiten explorar el entorno en 3D.
 
 ---
+## Mundo creado
+
+![Vídeo sin título ‐ Hecho con Clipchamp](https://github.com/user-attachments/assets/893d831d-ffb0-4c37-b48a-7218a3070b3f)
+
+![Captura de pantalla 2025-05-29 165252](https://github.com/user-attachments/assets/119b2d77-18d3-4dbe-92e6-4d9efa634ef5)
+
+![Captura de pantalla 2025-05-29 165346](https://github.com/user-attachments/assets/461073fb-38ec-4030-b00f-af7ebd132b20)
+
+
+---
 
 ## 📦 Estructura del Proyecto
 
