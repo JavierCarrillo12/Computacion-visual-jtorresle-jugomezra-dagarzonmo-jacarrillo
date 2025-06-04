@@ -155,6 +155,12 @@ def update_state(self):
 
 ---
 
+## 📊 Resultados Visuales
+
+![Muestra de funcionamiento de comandos](https://github.com/user-attachments/assets/b3d7e0f6-58be-4e95-b252-3f445fbb5f44)
+
+---
+
 ## 🧩 Prompts Usados
 
 ```text
