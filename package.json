@@ -5,5 +5,15 @@
   "devDependencies": {
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.6"
-  }
+  },
+  "name": "computacion-visual-jtorresle-jugomezra-dagarzonmo-jacarrillo",
+  "version": "1.0.0",
+  "description": "Repositorio para almacenar talleres, proyectos y entregables de la materia computación visual, desarrollado por:\r - Jorge Andrés Torres.\r - Daniel Felipe Garzón.\r - Juan Pablo Gomez Rangel\r - Javier Andrés Carrillo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

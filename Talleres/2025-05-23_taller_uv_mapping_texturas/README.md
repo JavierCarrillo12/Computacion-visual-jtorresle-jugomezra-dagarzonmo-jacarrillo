@@ -67,6 +67,8 @@ function TexturedBox() {
 }
 
 export default function App() {
+  const availableAnimations = ['nombre1', 'nombre2', 'nombre3']; // Reemplaza con los nombres reales
+
   return (
     <Canvas style={{ width: '100vw', height: '100vh', display: 'block' }} camera={{ position: [0, 5, 15], fov: 50 }}>
       <ambientLight intensity={0.7} />
