@@ -110,18 +110,16 @@ useEffect(() => {
 
 ```
 
-"¿Cuál control fue más útil?
+¿Cuál control fue más útil?
 El slider de color del material (Material Color) fue uno de los controles más impactantes visualmente, ya que permite cambiar inmediatamente el color del objeto y entender cómo interactúa con las diferentes fuentes de luz. En la imagen, se eligió un color amarillo brillante (#fff900) que resalta muy bien sobre el fondo oscuro y responde claramente a los cambios en iluminación.
 
 Además, los sliders de posición de la luz puntual (Point Light) fueron fundamentales para crear volumen y sombras en el objeto. Al mover las posiciones en los ejes X, Y y Z, se puede observar en tiempo real cómo cambian las sombras proyectadas y los brillos, lo que aporta una comprensión más intuitiva de cómo funciona la luz en 3D.
-```
-```
+
 ¿Qué mejorarías para el usuario?
 Activar la rotación automática por defecto o con un preset inicial que muestre el objeto en movimiento desde el comienzo, lo que haría más evidente el volumen y relieve de la geometría."
-```
 
 ```
-
+```
 ## ✅ Checklist de Entrega
 
 - [x] Carpeta `2025_05_24_dashboards_visuales_3D_sliders_botones`
