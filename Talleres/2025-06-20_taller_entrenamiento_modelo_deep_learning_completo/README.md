@@ -120,8 +120,19 @@ for epoch in range(10):
 ## 📊 Resultados Visuales
 
 * **Curvas de entrenamiento y validación**: Para observar cómo la pérdida disminuye con el tiempo y comparar el rendimiento en entrenamiento vs validación.
+
+![Curve-loss-comparativa](https://github.com/user-attachments/assets/e3cb4fdd-f8ae-4407-a85d-396ddc0f695c)
+
 * **Matriz de confusión**: Para evaluar el desempeño del modelo en las clases individuales.
+
+**Sin fine-tuning**
+![confussion-matriz-sin-fune-tuning](https://github.com/user-attachments/assets/39d49217-912d-4088-9177-ef2f8506e371)
+
+**Con fine-tuning**
+![confussion-matrix-con-fine-tuning](https://github.com/user-attachments/assets/76c56e58-85d7-491f-b635-75c28548c46f)
+
 * **Gráfica de comparación**: Sin y con fine-tuning para ver cómo mejora el rendimiento del modelo.
+![Curva-de-precision-comparativa](https://github.com/user-attachments/assets/43dc079d-9db5-44b8-91e0-049389742640)
 
 ---
 
@@ -134,7 +145,33 @@ for epoch in range(10):
 
 ---
 
+## 📚 Descripción del dataset y arquitectura
+El dataset utilizado fue MNIST, un conjunto de datos ampliamente usado para clasificación de imágenes de dígitos manuscritos (0–9). Cada imagen original es en escala de grises con un tamaño de 28x28 píxeles, pero para compatibilidad con redes convolucionales preentrenadas como ResNet18, fueron transformadas a tamaño 224x224 y convertidas a 3 canales (RGB simulado).
+
+Se emplearon dos arquitecturas:
+
+Una red neuronal simple entrenada desde cero, compuesta por capas densas (Linear) y funciones de activación ReLU.
+
+El modelo ResNet18 preentrenado en ImageNet, al cual se le reemplazó la capa final por una nueva Linear de 10 salidas. Se probó tanto con las capas congeladas (solo se entrena la capa final) como con fine-tuning completo.
+
+---
+
+## 🎯 Justificación del fine-tuning y validación usada
+El uso de fine-tuning se justifica por la ventaja que ofrece el aprendizaje transferido: al aprovechar un modelo preentrenado con millones de imágenes (ImageNet), se parte de una base con representaciones visuales robustas, incluso para un dominio diferente como los dígitos manuscritos.
+
+Se utilizó validación mediante:
+
+Hold-out (train/val split) para observar el desempeño por época durante el entrenamiento.
+
+Evaluación final sobre un subconjunto del conjunto de test para estimar la capacidad de generalización del modelo.
+
+---
+
 ## 💬 Reflexión Final
+
+El fine-tuning impactó significativamente el rendimiento del modelo. Incluso entrenando únicamente la última capa del ResNet18, se logró una precisión considerablemente más alta y rápida en comparación con la red entrenada desde cero, especialmente notable con pocos datos.
+
+La técnica de validación que resultó más útil fue el split de validación (hold-out), ya que permitió monitorear el sobreajuste y ajustar hiperparámetros como la tasa de aprendizaje. Para una evaluación más robusta en producción, se sugiere complementar con cross-validation si el conjunto de datos es pequeño.
 
 Este taller permitió aprender cómo entrenar un modelo de Deep Learning desde cero, comprender cómo dividir los datos para validación y evaluación, y aplicar técnicas avanzadas como el fine-tuning con modelos preentrenados. La parte más interesante fue comparar los resultados con y sin fine-tuning, lo que mostró una mejora significativa en el rendimiento del modelo. En proyectos futuros, podría aplicar técnicas de regularización y optimización para mejorar aún más los resultados.
 
