@@ -151,6 +151,35 @@ plt.show()
 
 ---
 
+## 📊 Resultados Visuales
+
+Muestra del dataset
+
+![Captura de pantalla 2025-06-14 184253](https://github.com/user-attachments/assets/28ae36d7-0951-494e-a264-d496c3d060b5)
+
+Evaluación sobre el train y val set
+
+![Captura de pantalla 2025-06-14 184303](https://github.com/user-attachments/assets/7769da12-e51d-442c-83bd-d4d7d3a71484)
+
+Gráfica
+
+![Captura de pantalla 2025-06-14 184324](https://github.com/user-attachments/assets/eeff679c-b02d-4562-8f69-017a5386d544)
+
+Evaluación sobre test set
+
+![Captura de pantalla 2025-06-14 184337](https://github.com/user-attachments/assets/50e3289d-aacb-45e0-8a4a-e1db70a26bb2)
+
+Confusion Matrix
+
+![Captura de pantalla 2025-06-14 184344](https://github.com/user-attachments/assets/c0398ce9-c97e-459e-b199-4e95b07b3946)
+
+Ejemplos correctos e incorrectos
+
+![Captura de pantalla 2025-06-14 184353](https://github.com/user-attachments/assets/684e4466-6d43-422d-b7b5-5f703569cf69)
+
+
+---
+
 ## 💬 Reflexión Final
 
 **¿Qué aprendiste sobre los filtros y capas?**
