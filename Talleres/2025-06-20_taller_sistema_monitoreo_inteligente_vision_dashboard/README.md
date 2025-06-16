@@ -151,13 +151,20 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
+
 ````
 
 ---
 
 ## Resulados visuales
 
+Detección solo personas
+
 ![Vídeo sin título ‐ Hecho con Clipchamp (1)](https://github.com/user-attachments/assets/822101b6-5e9a-4a1e-a1ea-2a6d93cc9858)
+
+Detección de más objetos
+
+![Vídeo sin título ‐ Hecho con Clipchamp (2)](https://github.com/user-attachments/assets/2e65c6a0-e5b8-4b1f-945d-22cbec46bc20)
 
 
 ---
