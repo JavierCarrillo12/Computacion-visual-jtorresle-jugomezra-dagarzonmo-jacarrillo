@@ -1,7 +1,7 @@
 # 🧪 Taller - Construcción de un Mini-Sistema de Monitoreo Inteligente
 
 ## 📅 Fecha
-2025-06-06
+2025-06-20
 
 ---
 
@@ -17,7 +17,7 @@ Lista los principales conceptos aplicados:
 
 - [x] Captura de video en tiempo real con OpenCV
 - [x] Detección de objetos con YOLOv5 o cvlib
-- [x] Visualización en tiempo real con **matplotlib**, **tkinter**, **dash**
+- [x] Visualización en tiempo real con **matplotlib**, **dash**
 - [x] Registro de eventos y almacenamiento de logs con **pandas**
 - [x] Generación de imágenes capturadas al detectar objetos
 - [ ] Manejo de eventos asíncronos para notificaciones o alertas
@@ -29,7 +29,7 @@ Lista los principales conceptos aplicados:
 
 Especifica los entornos usados:
 
-- **Python 3.9+**  
+- **Python 3.10+**  
 - **Bibliotecas**:
   - `opencv-python`: Para la captura y procesamiento de video.
   - `ultralytics` o `cvlib`: Para la detección de objetos en tiempo real.
@@ -37,7 +37,7 @@ Especifica los entornos usados:
   - `pandas`: Para exportar los logs y capturas de eventos.
   - `datetime`, `os`: Para gestionar los registros y carpetas.
   
-- **Editor/IDE**: Visual Studio Code / PyCharm  
+- **Editor/IDE**: Visual Studio Code  
 - **Ejecución**: Local (Windows, Linux o macOS)  
 
 ---
@@ -52,18 +52,15 @@ Mini-Sistema-Monitoreo-Inteligente/
 │   ├── detector.py
 │   ├── logger.py
 │   ├── visual\_panel.py
-│   └── capture.py
 └── README.md
-└── logs/
-└── captures/
+
 
 ````
 
 - **`main.py`**: Punto de entrada del proyecto. Captura el video y maneja la ejecución del sistema.  
 - **`detector.py`**: Contiene la lógica de detección de personas y objetos usando YOLOv5/v8 o cvlib.  
 - **`logger.py`**: Maneja la creación y escritura de logs con **pandas** y guarda los eventos en CSV.  
-- **`visual_panel.py`**: Configura el panel visual en tiempo real para mostrar las estadísticas, los contadores y gráficos.  
-- **`capture.py`**: Gestiona las capturas de imágenes cuando se detectan personas y las guarda en la carpeta correspondiente.  
+- **`visual_panel.py`**: Configura el panel visual en tiempo real para mostrar las estadísticas, los contadores y gráficos.   
 
 ---
 
@@ -75,7 +72,7 @@ Mini-Sistema-Monitoreo-Inteligente/
    - Se configura la cámara web con OpenCV y se captura cada frame en tiempo real.
    
 2. **Detección de objetos**:  
-   - Usamos **YOLOv5**, **YOLOv8** o **cvlib.detect_common_objects()** para detectar personas y otros objetos en el video.
+   - Usamos **YOLOv5** para detectar personas y otros objetos en el video.
    - Se calculan estadísticas en tiempo real, como el conteo de objetos detectados por tipo.
 
 3. **Visualización en tiempo real**:  
@@ -85,74 +82,83 @@ Mini-Sistema-Monitoreo-Inteligente/
      - Estado del sistema (inactivo, alerta, grabando).
 
 4. **Generación de logs y capturas**:  
-   - Cuando se detecta una persona, se guarda una imagen y se registra el evento con el **timestamp** y la **descripción** en un archivo CSV.
-   - Se crean carpetas `logs/` y `captures/` para guardar los logs y las imágenes de las detecciones.
-
-5. **Notificación de eventos** (opcional):  
-   - Se pueden implementar notificaciones visuales o emergentes para alertar sobre eventos importantes, como la detección de personas.
+   - Cuando se detecta una persona, se guarda una imagen y se registra el evento con el **timestamp** y la **descripción** en el paneñ en la tabla que se encuentra en la sección final
 
 ### 🔹 Código relevante
 
 ```python
-# main.py (fragmento central)
 import cv2
 import pandas as pd
 from detector import ObjectDetector
-from logger import EventLogger
-from visual_panel import VisualPanel
-from capture import CaptureImage
+from logger import Logger
+import os
 import time
+from visual_panel import VisualPanel
 
-# Inicializar los componentes
+# Crear carpetas para guardar las imágenes y logs si no existen
+os.makedirs("capturas", exist_ok=True)
+os.makedirs("logs", exist_ok=True)
+
+# Configuración inicial del sistema de detección
 detector = ObjectDetector()
-logger = EventLogger()
+logger = Logger()
+
+# Inicializar el panel visual
 visual_panel = VisualPanel()
-capture = CaptureImage()
+visual_panel.run()
 
+# Inicialización de variables para el contador y estado
+frame_count = 0
+
+# Abrir la cámara
 cap = cv2.VideoCapture(0)
-
-# Crear DataFrame para los logs
-log_columns = ['timestamp', 'evento', 'clase', 'confianza']
-logs_df = pd.DataFrame(columns=log_columns)
 
 while True:
     ret, frame = cap.read()
     if not ret:
         break
+
+    # Detección de objetos
+    detections = detector.detect_objects(frame)
+
+    # Actualizar el panel visual con el frame actual
+    visual_panel.update_frame(frame)
+
+    # Mostrar las estadísticas en el panel visual
+    timestamp = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
     
-    objects_detected = detector.detect_objects(frame)
+    # Actualizar el panel visual con las estadísticas
+    visual_panel.update(detections)
 
-    # Actualizar el panel visual con los resultados
-    visual_panel.update(objects_detected)
+    # Crear entradas de log para cada detección
+    for detection in detections:
+        log_entry = {
+            "timestamp": timestamp,
+            "evento": f"{detection['class']} detectado",
+            "clase": detection['class'],
+            "confianza": f"{detection['confidence']:.2f}"
+        }
+        # Actualizar logs en el panel visual
+        visual_panel.update_logs(log_entry)
 
-    for obj in objects_detected:
-        if obj['class'] == 'person':
-            # Guardar la imagen capturada si se detecta una persona
-            capture.save_image(frame)
+    # Guardar la imagen si se detecta algún objeto
+    if detections:
+        cv2.imwrite(f"capturas/detection_{timestamp}.jpg", frame)
 
-            # Escribir el log de evento
-            timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
-            log_entry = {
-                'timestamp': timestamp,
-                'evento': 'Persona detectada',
-                'clase': obj['class'],
-                'confianza': obj['confidence']
-            }
-            logs_df = logs_df.append(log_entry, ignore_index=True)
-
-    # Mostrar el panel y estadísticas
-    cv2.imshow('Monitoreo', frame)
-
-    # Terminar con 'ESC'
-    if cv2.waitKey(1) & 0xFF == 27:
+    # Esperar una tecla para salir
+    if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
 cap.release()
 cv2.destroyAllWindows()
-
-# Guardar el log en un archivo CSV
-logs_df.to_csv('logs/eventos.csv', index=False)
 ````
+
+---
+
+## Resulados visuales
+
+![Vídeo sin título ‐ Hecho con Clipchamp (1)](https://github.com/user-attachments/assets/822101b6-5e9a-4a1e-a1ea-2a6d93cc9858)
+
 
 ---
 
