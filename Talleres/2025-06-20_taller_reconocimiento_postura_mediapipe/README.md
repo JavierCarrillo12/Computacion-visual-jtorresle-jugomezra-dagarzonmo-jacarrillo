@@ -86,6 +86,12 @@ while True:
 cap.release()
 cv2.destroyAllWindows()
 ```
+---
+
+## Resultado visual
+
+![Vídeo sin título ‐ Hecho con Clipchamp (3)](https://github.com/user-attachments/assets/b89c23f4-2588-4f40-8c0b-e8aad773451d)
+
 
 ---
 
