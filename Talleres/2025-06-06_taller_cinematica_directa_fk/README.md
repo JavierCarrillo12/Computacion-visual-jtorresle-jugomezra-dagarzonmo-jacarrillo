@@ -99,12 +99,11 @@ useFrame(({ clock }) => {
 ## 📊 Resultados Visuales
 
 ### Threejs
-```
 ![Vite-React-TS-Google-Chrome](https://github.com/user-attachments/assets/e2386dd1-6871-4012-89fb-c94f39a413ed)
 
 
 
-
+```
 ```
 
 ## 💬 Reflexión Final
