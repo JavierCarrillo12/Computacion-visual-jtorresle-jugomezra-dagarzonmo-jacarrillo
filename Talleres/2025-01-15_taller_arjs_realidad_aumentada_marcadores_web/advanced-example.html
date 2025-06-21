@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 AR.js Avanzado - Múltiples Marcadores e Interacciones</title>
+    
+    <!-- A-Frame y AR.js -->
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@3.4.0/aframe/build/aframe-ar.js"></script>
+    
+    <!-- Componentes personalizados -->
+    <script>
+        // Componente para efectos de partículas
+        AFRAME.registerComponent('particle-system', {
+            init: function() {
+                this.createParticles();
+            },
+            
+            createParticles: function() {
+                const geometry = new THREE.BufferGeometry();
+                const particleCount = 100;
+                const positions = new Float32Array(particleCount * 3);
+                
+                for (let i = 0; i < particleCount * 3; i += 3) {
+                    positions[i] = (Math.random() - 0.5) * 2;
+                    positions[i + 1] = (Math.random() - 0.5) * 2;
+                    positions[i + 2] = (Math.random() - 0.5) * 2;
+                }
+                
+                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                
+                const material = new THREE.PointsMaterial({
+                    color: 0x00ff00,
+                    size: 0.05,
+                    transparent: true,
+                    opacity: 0.8
+                });
+                
+                const particles = new THREE.Points(geometry, material);
+                this.el.object3D.add(particles);
+            }
+        });
+        
+        // Componente para animaciones complejas
+        AFRAME.registerComponent('complex-animation', {
+            init: function() {
+                this.animationState = 0;
+                this.animationSpeed = 0.02;
+                this.setupAnimations();
+            },
+            
+            setupAnimations: function() {
+                this.originalPosition = this.el.getAttribute('position');
+                this.originalRotation = this.el.getAttribute('rotation');
+                this.originalScale = this.el.getAttribute('scale');
+            },
+            
+            tick: function(time) {
+                const t = time * this.animationSpeed;
+                
+                // Animación de flotación
+                const y = this.originalPosition.y + Math.sin(t) * 0.2;
+                
+                // Animación de rotación
+                const rotationY = this.originalRotation.y + t * 50;
+                
+                // Animación de escala pulsante
+                const scale = 1 + Math.sin(t * 2) * 0.1;
+                
+                this.el.setAttribute('position', {
+                    x: this.originalPosition.x,
+                    y: y,
+                    z: this.originalPosition.z
+                });
+                
+                this.el.setAttribute('rotation', {
+                    x: this.originalRotation.x,
+                    y: rotationY,
+                    z: this.originalRotation.z
+                });
+                
+                this.el.setAttribute('scale', {
+                    x: scale,
+                    y: scale,
+                    z: scale
+                });
+            }
+        });
+        
+        // Componente para interacciones avanzadas
+        AFRAME.registerComponent('advanced-interaction', {
+            init: function() {
+                this.isHovered = false;
+                this.isClicked = false;
+                this.originalColor = this.el.getAttribute('material').color;
+                this.setupEventListeners();
+            },
+            
+            setupEventListeners: function() {
+                this.el.addEventListener('mouseenter', () => {
+                    this.isHovered = true;
+                    this.el.setAttribute('material', 'color: #ff6b6b');
+                    this.el.setAttribute('scale', '1.2 1.2 1.2');
+                });
+                
+                this.el.addEventListener('mouseleave', () => {
+                    this.isHovered = false;
+                    if (!this.isClicked) {
+                        this.el.setAttribute('material', `color: ${this.originalColor}`);
+                        this.el.setAttribute('scale', '1 1 1');
+                    }
+                });
+                
+                this.el.addEventListener('click', () => {
+                    this.isClicked = !this.isClicked;
+                    if (this.isClicked) {
+                        this.el.setAttribute('material', 'color: #4ecdc4');
+                        this.el.setAttribute('scale', '1.5 1.5 1.5');
+                        this.triggerSpecialEffect();
+                    } else {
+                        this.el.setAttribute('material', `color: ${this.originalColor}`);
+                        this.el.setAttribute('scale', '1 1 1');
+                    }
+                });
+            },
+            
+            triggerSpecialEffect: function() {
+                // Crear efecto de explosión de partículas
+                const explosion = document.createElement('a-entity');
+                explosion.setAttribute('position', this.el.getAttribute('position'));
+                explosion.setAttribute('particle-system', '');
+                this.el.sceneEl.appendChild(explosion);
+                
+                // Remover después de 3 segundos
+                setTimeout(() => {
+                    this.el.sceneEl.removeChild(explosion);
+                }, 3000);
+            }
+        });
+    </script>
+    
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .ui-overlay {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 350px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .marker-status {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .marker-status.detected {
+            background: rgba(0, 255, 0, 0.2);
+            border-left: 4px solid #00ff00;
+        }
+        
+        .marker-status.searching {
+            background: rgba(255, 165, 0, 0.2);
+            border-left: 4px solid #ffa500;
+        }
+        
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .control-btn {
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .control-btn:active {
+            transform: translateY(0);
+        }
+        
+        .stats {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 12px;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Interfaz de usuario avanzada -->
+    <div class="ui-overlay">
+        <h3>🚀 AR.js Avanzado</h3>
+        <p><strong>Marcadores Detectados:</strong></p>
+        
+        <div id="hiro-status" class="marker-status searching">
+            <span>🎯 Marcador HIRO</span>
+            <span>🔍 Buscando...</span>
+        </div>
+        
+        <div id="custom-status" class="marker-status searching">
+            <span>🎨 Marcador Personalizado</span>
+            <span>🔍 Buscando...</span>
+        </div>
+        
+        <div style="margin-top: 15px; font-size: 12px; opacity: 0.8;">
+            <p>💡 <strong>Consejos:</strong></p>
+            <ul>
+                <li>Usa múltiples marcadores simultáneamente</li>
+                <li>Interactúa con los objetos 3D</li>
+                <li>Observa los efectos de partículas</li>
+                <li>Experimenta con las animaciones</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Estadísticas -->
+    <div class="stats">
+        <div>📊 <strong>Estadísticas</strong></div>
+        <div>FPS: <span id="fps">60</span></div>
+        <div>Marcadores: <span id="marker-count">0</span></div>
+        <div>Interacciones: <span id="interaction-count">0</span></div>
+    </div>
+    
+    <!-- Controles avanzados -->
+    <div class="controls">
+        <button class="control-btn" onclick="toggleAllAnimations()">🔄 Toggle Animaciones</button>
+        <button class="control-btn" onclick="changeLighting()">💡 Cambiar Iluminación</button>
+        <button class="control-btn" onclick="triggerParticleExplosion()">✨ Explosión de Partículas</button>
+        <button class="control-btn" onclick="resetScene()">🔄 Reset Escena</button>
+        <button class="control-btn" onclick="toggleSound()">🔊 Toggle Sonido</button>
+    </div>
+    
+    <!-- Escena AR avanzada -->
+    <a-scene embedded 
+    >
+        
+        <!-- Marcador HIRO con contenido avanzado -->
+        <a-marker preset="hiro" 
+                  id="hiro-marker"
+                  emitevents="true"
+                  cursor="rayOrigin: mouse"
+                  raycaster="objects: .clickable">
+            
+            <!-- Modelo principal con interacciones avanzadas -->
+            <a-box id="main-model"
+                   position="0 0.5 0" 
+                   material="color: #667eea; metalness: 0.9; roughness: 0.1"
+                   scale="1 1 1"
+                   class="clickable"
+                   advanced-interaction
+                   complex-animation
+                   sound="src: #hover-sound; on: click">
+            </a-box>
+            
+            <!-- Esfera con efectos de partículas -->
+            <a-sphere position="1.5 0.5 0" 
+                      radius="0.3" 
+                      material="color: #4ecdc4; metalness: 0.7; roughness: 0.3"
+                      class="clickable"
+                      advanced-interaction
+                      particle-system>
+            </a-sphere>
+            
+            <!-- Cilindro con animación compleja -->
+            <a-cylinder position="-1.5 0.5 0" 
+                        radius="0.3" 
+                        height="0.6"
+                        material="color: #ff6b6b; metalness: 0.5; roughness: 0.4"
+                        class="clickable"
+                        advanced-interaction
+                        complex-animation>
+            </a-cylinder>
+            
+            <!-- Texto 3D flotante -->
+            <a-text value="AR.js\nAvanzado" 
+                    position="0 2 0" 
+                    align="center" 
+                    color="#ffffff"
+                    font="kelsonsans"
+                    scale="0.6 0.6 0.6"
+                    animation="property: position; to: 0 2.5 0; loop: true; dir: alternate; dur: 3000">
+            </a-text>
+            
+            <!-- Luz direccional para el marcador -->
+            <a-light type="directional" 
+                     position="0 5 5" 
+                     target="#main-model"
+                     intensity="0.8"
+                     color="#ffffff">
+            </a-light>
+            
+        </a-marker>
+        
+        <!-- Marcador personalizado (opcional) -->
+        <a-marker preset="custom" 
+                  type="pattern" 
+                  url="markers/pattern-rojo.patt"
+                  id="custom-marker"
+                  emitevents="true"
+                  visible="false">
+            
+            <!-- Modelo 3D personalizado -->
+            <a-entity gltf-model="models/robot.glb"
+                      scale="0.5 0.5 0.5"
+                      position="0 0 0"
+                      class="clickable"
+                      advanced-interaction
+                      animation="property: rotation; to: 0 360 0; loop: true; dur: 4000">
+            </a-entity>
+            
+            <!-- Efectos de partículas para el robot -->
+            <a-entity position="0 1 0" particle-system></a-entity>
+            
+        </a-marker>
+        
+        <!-- Cámara con controles avanzados -->
+        <a-entity camera look-controls="enabled: false" wasd-controls="enabled: false"></a-entity>
+        
+        <!-- Iluminación ambiental -->
+        <a-light type="ambient" intensity="0.4" color="#ffffff"></a-light>
+        
+        <!-- Sonidos -->
+        <a-assets>
+            <audio id="hover-sound" src="sounds/hover.mp3" preload="auto"></audio>
+            <audio id="detection-sound" src="sounds/detection.mp3" preload="auto"></audio>
+            <audio id="explosion-sound" src="sounds/explosion.mp3" preload="auto"></audio>
+        </a-assets>
+        
+    </a-scene>
+    
+    <!-- Scripts avanzados -->
+    <script>
+        // Variables globales
+        let animationEnabled = true;
+        let soundEnabled = true;
+        let interactionCount = 0;
+        let markerCount = 0;
+        let currentLighting = 0;
+        
+        // Elementos del DOM
+        const hiroStatus = document.getElementById('hiro-status');
+        const customStatus = document.getElementById('custom-status');
+        const fpsElement = document.getElementById('fps');
+        const markerCountElement = document.getElementById('marker-count');
+        const interactionCountElement = document.getElementById('interaction-count');
+        
+        // Marcadores
+        const hiroMarker = document.getElementById('hiro-marker');
+        const customMarker = document.getElementById('custom-marker');
+        
+        // Eventos del marcador HIRO
+        hiroMarker.addEventListener('markerFound', function() {
+            console.log('🎯 Marcador HIRO detectado!');
+            hiroStatus.innerHTML = '<span>🎯 Marcador HIRO</span><span>✅ Detectado</span>';
+            hiroStatus.className = 'marker-status detected';
+            markerCount++;
+            updateStats();
+            
+            // Efectos especiales
+            triggerDetectionEffects();
+        });
+        
+        hiroMarker.addEventListener('markerLost', function() {
+            console.log('❌ Marcador HIRO perdido');
+            hiroStatus.innerHTML = '<span>🎯 Marcador HIRO</span><span>🔍 Buscando...</span>';
+            hiroStatus.className = 'marker-status searching';
+            markerCount = Math.max(0, markerCount - 1);
+            updateStats();
+        });
+        
+        // Eventos del marcador personalizado
+        customMarker.addEventListener('markerFound', function() {
+            console.log('🎨 Marcador personalizado detectado!');
+            customStatus.innerHTML = '<span>🎨 Marcador Personalizado</span><span>✅ Detectado</span>';
+            customStatus.className = 'marker-status detected';
+            markerCount++;
+            updateStats();
+            
+            // Efectos especiales
+            triggerDetectionEffects();
+        });
+        
+        customMarker.addEventListener('markerLost', function() {
+            console.log('❌ Marcador personalizado perdido');
+            customStatus.innerHTML = '<span>🎨 Marcador Personalizado</span><span>🔍 Buscando...</span>';
+            customStatus.className = 'marker-status searching';
+            markerCount = Math.max(0, markerCount - 1);
+            updateStats();
+        });
+        
+        // Funciones de control avanzadas
+        function toggleAllAnimations() {
+            animationEnabled = !animationEnabled;
+            const animatedElements = document.querySelectorAll('[complex-animation]');
+            
+            animatedElements.forEach(element => {
+                if (animationEnabled) {
+                    element.setAttribute('complex-animation', '');
+                } else {
+                    element.removeAttribute('complex-animation');
+                }
+            });
+            
+            console.log(animationEnabled ? '🔄 Animaciones activadas' : '⏸️ Animaciones pausadas');
+        }
+        
+        function changeLighting() {
+            const lightingModes = [
+                { ambient: 0.4, directional: 0.8, color: '#ffffff' },
+                { ambient: 0.8, directional: 0.2, color: '#ff6b6b' },
+                { ambient: 0.2, directional: 1.0, color: '#4ecdc4' },
+                { ambient: 0.6, directional: 0.6, color: '#667eea' }
+            ];
+            
+            currentLighting = (currentLighting + 1) % lightingModes.length;
+            const mode = lightingModes[currentLighting];
+            
+            // Cambiar iluminación ambiental
+            const ambientLight = document.querySelector('a-light[type="ambient"]');
+            ambientLight.setAttribute('intensity', mode.ambient);
+            ambientLight.setAttribute('color', mode.color);
+            
+            // Cambiar iluminación direccional
+            const directionalLight = document.querySelector('a-light[type="directional"]');
+            directionalLight.setAttribute('intensity', mode.directional);
+            directionalLight.setAttribute('color', mode.color);
+            
+            console.log(`💡 Iluminación cambiada a modo ${currentLighting + 1}`);
+        }
+        
+        function triggerParticleExplosion() {
+            const scene = document.querySelector('a-scene');
+            const explosion = document.createElement('a-entity');
+            explosion.setAttribute('position', '0 0 0');
+            explosion.setAttribute('particle-system', '');
+            scene.appendChild(explosion);
+            
+            // Reproducir sonido
+            if (soundEnabled) {
+                const explosionSound = document.getElementById('explosion-sound');
+                if (explosionSound) {
+                    explosionSound.play().catch(e => console.log('Audio no disponible:', e));
+                }
+            }
+            
+            // Remover después de 5 segundos
+            setTimeout(() => {
+                scene.removeChild(explosion);
+            }, 5000);
+            
+            console.log('✨ Explosión de partículas activada');
+        }
+        
+        function resetScene() {
+            // Resetear todos los modelos
+            const models = document.querySelectorAll('[advanced-interaction]');
+            models.forEach(model => {
+                model.setAttribute('material', 'color: #667eea; metalness: 0.9; roughness: 0.1');
+                model.setAttribute('scale', '1 1 1');
+            });
+            
+            // Resetear contadores
+            interactionCount = 0;
+            updateStats();
+            
+            console.log('🔄 Escena reseteada');
+        }
+        
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            console.log(soundEnabled ? '🔊 Sonido activado' : '🔇 Sonido desactivado');
+        }
+        
+        function triggerDetectionEffects() {
+            // Efecto visual de detección
+            const scene = document.querySelector('a-scene');
+            const flash = document.createElement('a-entity');
+            flash.setAttribute('position', '0 0 -2');
+            flash.setAttribute('geometry', 'primitive: plane; width: 10; height: 10');
+            flash.setAttribute('material', 'color: #ffffff; transparent: true; opacity: 0.3');
+            scene.appendChild(flash);
+            
+            // Animación de fade out
+            flash.setAttribute('animation', 'property: material.opacity; to: 0; dur: 1000');
+            
+            setTimeout(() => {
+                scene.removeChild(flash);
+            }, 1000);
+            
+            // Reproducir sonido
+            if (soundEnabled) {
+                const detectionSound = document.getElementById('detection-sound');
+                if (detectionSound) {
+                    detectionSound.play().catch(e => console.log('Audio no disponible:', e));
+                }
+            }
+        }
+        
+        function updateStats() {
+            markerCountElement.textContent = markerCount;
+            interactionCountElement.textContent = interactionCount;
+        }
+        
+        // Monitoreo de FPS
+        let frameCount = 0;
+        let lastTime = performance.now();
+        
+        function updateFPS() {
+            frameCount++;
+            const currentTime = performance.now();
+            
+            if (currentTime - lastTime >= 1000) {
+                const fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
+                fpsElement.textContent = fps;
+                frameCount = 0;
+                lastTime = currentTime;
+            }
+            
+            requestAnimationFrame(updateFPS);
+        }
+        
+        // Eventos de interacción globales
+        document.addEventListener('click', function() {
+            interactionCount++;
+            updateStats();
+        });
+        
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 AR.js Avanzado inicializado');
+            console.log('📱 Funcionalidades disponibles:');
+            console.log('  - Múltiples marcadores');
+            console.log('  - Interacciones avanzadas');
+            console.log('  - Efectos de partículas');
+            console.log('  - Animaciones complejas');
+            console.log('  - Sistema de iluminación dinámico');
+            
+            // Iniciar monitoreo de FPS
+            updateFPS();
+        });
+        
+        // Manejo de errores
+        window.addEventListener('error', function(e) {
+            console.error('Error en AR.js:', e);
+        });
+    </script>
+</body>
+</html> 

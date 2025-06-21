@@ -1,0 +1,115 @@
+{
+  "name": "taller-arjs-realidad-aumentada-marcadores",
+  "version": "1.0.0",
+  "description": "Taller de introducción a realidad aumentada web usando AR.js y marcadores",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve . -p 8000",
+    "dev": "npx live-server --port=8000 --open=/index.html",
+    "build": "echo 'No build process required for static HTML'",
+    "test": "echo 'No tests specified'",
+    "lint": "echo 'No linting configured'"
+  },
+  "keywords": [
+    "ar",
+    "augmented-reality",
+    "arjs",
+    "aframe",
+    "threejs",
+    "markers",
+    "web",
+    "javascript",
+    "html5",
+    "education",
+    "taller"
+  ],
+  "author": "Equipo de Computación Visual",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/computacion-visual/talleres.git"
+  },
+  "bugs": {
+    "url": "https://gitlab.com/computacion-visual/talleres/issues"
+  },
+  "homepage": "https://gitlab.com/computacion-visual/talleres",
+  "devDependencies": {
+    "serve": "^14.2.0",
+    "live-server": "^1.2.2"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "dependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "bundledDependencies": [],
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "cpu": [
+    "x64",
+    "arm64"
+  ],
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "index.html",
+    "advanced-example.html",
+    "README.md",
+    "models/",
+    "markers/",
+    "sounds/"
+  ],
+  "directories": {
+    "lib": ".",
+    "test": "test",
+    "docs": "docs"
+  },
+  "config": {
+    "port": 8000,
+    "host": "localhost"
+  },
+  "metadata": {
+    "technologies": [
+      "AR.js",
+      "A-Frame",
+      "Three.js",
+      "HTML5",
+      "CSS3",
+      "JavaScript"
+    ],
+    "features": [
+      "Marker-based AR",
+      "3D Models",
+      "Animations",
+      "Interactions",
+      "Sound Effects",
+      "Particle Systems",
+      "Multiple Markers"
+    ],
+    "compatibility": {
+      "browsers": [
+        "Chrome >= 60",
+        "Firefox >= 55",
+        "Safari >= 11",
+        "Edge >= 79"
+      ],
+      "devices": [
+        "Desktop",
+        "Mobile",
+        "Tablet"
+      ]
+    }
+  }
+} 

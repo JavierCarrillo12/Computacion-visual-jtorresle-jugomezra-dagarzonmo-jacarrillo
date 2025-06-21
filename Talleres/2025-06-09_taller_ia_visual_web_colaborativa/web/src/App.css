@@ -1,0 +1,58 @@
+.App {
+  min-height: 100vh;
+}
+
+.message {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Mejoras para el canvas de Three.js */
+.scene-container canvas {
+  border-radius: 12px;
+}
+
+/* Estilos para las etiquetas 3D */
+.scene-container .Html {
+  pointer-events: none;
+}
+
+/* Mejoras para el drag and drop */
+.upload-area.dragover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
+}
+
+/* Animaciones para los botones */
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Mejoras para la lista de detecciones */
+.detection-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.detection-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.detection-list::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.detection-list::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+} 

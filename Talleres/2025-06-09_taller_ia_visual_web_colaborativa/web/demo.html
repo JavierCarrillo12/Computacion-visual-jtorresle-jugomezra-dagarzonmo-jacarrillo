@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo - Imagen en Plano 3D</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r160/three.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .upload-area {
+            border: 3px dashed #fff;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .upload-area:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        #scene3D {
+            width: 100%;
+            height: 600px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .info {
+            background: rgba(0,0,0,0.5);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Demo: Imagen en Plano 3D</h1>
+        <p>Sube una imagen para verla como textura en un plano 3D</p>
+        
+        <div class="info">
+            <h3>Instrucciones:</h3>
+            <ul>
+                <li>Haz clic en el área de upload o arrastra una imagen</li>
+                <li>La imagen se mostrará como textura en un plano 3D</li>
+                <li>Usa el mouse para rotar, hacer zoom y mover la cámara</li>
+            </ul>
+        </div>
+        
+        <div class="upload-area" onclick="document.getElementById('imageInput').click()">
+            <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="loadImage(event)">
+            <div id="uploadContent">
+                <span style="font-size: 3rem;">📷</span>
+                <p>Haz clic para seleccionar una imagen</p>
+                <small>o arrastra y suelta aquí</small>
+            </div>
+        </div>
+        
+        <div id="scene3D"></div>
+    </div>
+
+    <script>
+        let scene, camera, renderer, controls;
+        let imagePlane = null;
+
+        // Inicializar Three.js
+        function init() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x1a1a1a);
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 5, 10);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(document.getElementById('scene3D').clientWidth, 600);
+            document.getElementById('scene3D').appendChild(renderer.domElement);
+
+            // Controles
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+
+            // Iluminación
+            const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
+            scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(10, 10, 5);
+            scene.add(directionalLight);
+
+            // Grid helper
+            const gridHelper = new THREE.GridHelper(20, 20, 0x444444, 0x222222);
+            scene.add(gridHelper);
+
+            animate();
+        }
+
+        // Cargar imagen
+        function loadImage(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (!file.type.startsWith('image/')) {
+                alert('Por favor selecciona un archivo de imagen válido');
+                return;
+            }
+
+            // Mostrar preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('uploadContent').innerHTML = `
+                    <img src="${e.target.result}" style="max-width: 200px; max-height: 150px; border-radius: 8px;">
+                    <p>${file.name}</p>
+                `;
+                
+                // Crear textura
+                const textureLoader = new THREE.TextureLoader();
+                textureLoader.load(e.target.result, function(texture) {
+                    createImagePlane(texture, file);
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Crear plano con imagen
+        function createImagePlane(texture, file) {
+            // Remover plano anterior si existe
+            if (imagePlane) {
+                scene.remove(imagePlane);
+            }
+
+            // Calcular aspect ratio
+            const img = new Image();
+            img.onload = function() {
+                const aspectRatio = img.width / img.height;
+                const planeWidth = 8;
+                const planeHeight = planeWidth / aspectRatio;
+
+                // Crear geometría del plano
+                const geometry = new THREE.PlaneGeometry(planeWidth, planeHeight);
+                const material = new THREE.MeshBasicMaterial({ 
+                    map: texture,
+                    transparent: true,
+                    opacity: 0.9
+                });
+
+                imagePlane = new THREE.Mesh(geometry, material);
+                imagePlane.rotation.x = -Math.PI / 2; // Rotar para que esté horizontal
+                imagePlane.position.z = -0.1;
+                scene.add(imagePlane);
+
+                // Ajustar cámara para ver toda la imagen
+                const distance = Math.max(planeWidth, planeHeight) * 1.5;
+                camera.position.set(0, distance, distance);
+                camera.lookAt(0, 0, 0);
+                controls.target.set(0, 0, 0);
+                controls.update();
+            };
+            img.src = URL.createObjectURL(file);
+        }
+
+        // Loop de animación
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // Manejar redimensionamiento
+        window.addEventListener('resize', function() {
+            const width = document.getElementById('scene3D').clientWidth;
+            camera.aspect = width / 600;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, 600);
+        });
+
+        // Inicializar cuando se carga la página
+        window.addEventListener('load', init);
+
+        // Drag and drop
+        const uploadArea = document.querySelector('.upload-area');
+        
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadArea.style.background = 'rgba(255,255,255,0.2)';
+        });
+
+        uploadArea.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            uploadArea.style.background = 'transparent';
+        });
+
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadArea.style.background = 'transparent';
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                const event = { target: { files: files } };
+                loadImage(event);
+            }
+        });
+    </script>
+</body>
+</html> 
