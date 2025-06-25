@@ -3,25 +3,6 @@
 ## 🎯 Objetivo  
 Comprender cómo funcionan los modelos de difusión generativa y aprender a generar imágenes detalladas a partir de descripciones textuales (prompts) usando **Stable Diffusion** con la librería **diffusers** de Hugging Face, ya sea en **Google Colab** o en un **entorno local**.
 
----
-
-## 📋 Contenidos  
-1. [Introducción a los Modelos de Difusión](#introducción-a-los-modelos-de-difusión)  
-2. [Preparación del Entorno](#preparación-del-entorno)  
-   - Google Colab  
-   - Entorno Local (Linux / Windows / macOS)  
-3. [Carga de un Modelo Preentrenado](#carga-de-un-modelo-preentrenado)  
-4. [Generación de Imágenes a Partir de Prompts](#generación-de-imágenes-a-partir-de-prompts)  
-   - Parámetros clave (`num_inference_steps`, `guidance_scale`, `height`, `width`)  
-   - Uso de _negative prompts_  
-   - Muestreo en lote (batch)  
-5. [Optimización de Memoria y Velocidad](#optimización-de-memoria-y-velocidad)  
-6. [Técnicas Avanzadas](#técnicas-avanzadas)  
-   - Inpainting  
-   - ControlNet  
-   - Fine-tuning con LoRA / DreamBooth  
-7. [Guardado y Presentación de Resultados](#guardado-y-presentación-de-resultados)  
-8. [Buenas Prácticas y Recursos](#buenas-prácticas-y-recursos)
 
 ---
 
@@ -40,7 +21,8 @@ Más información:
 ## ⚙️ 2. Preparación del Entorno
 
 ### Google Colab  
-1. Abre el notebook `Taller_StableDiffusion.ipynb` en tu Drive.  
+#### Link al colab: https://colab.research.google.com/drive/1vjsiGepbEtkFq0pJahgytah7syIh1ucr?usp=sharing
+1. Abre el notebook `Taller_StableDiffusion.ipynb` en tu Drive
 2. Activa GPU: **Entorno → Cambiar tipo de entorno de ejecución → GPU**.  
 3. Ejecuta la celda de instalación:
 ```bash
