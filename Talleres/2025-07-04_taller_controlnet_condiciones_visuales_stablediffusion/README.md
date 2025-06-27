@@ -4,6 +4,10 @@
 
 Guiar la generación de imágenes mediante entradas condicionales como bordes (Canny), poses humanas o mapas de profundidad usando ControlNet junto con Stable Diffusion. El objetivo es experimentar con control explícito sobre la estructura de las imágenes generadas y comparar la salida con y sin condiciones visuales.
 
+## Link al notebook
+
+https://colab.research.google.com/drive/1J952bfTllfcF9ToXQwULm99zPGs3fvtA?usp=sharing
+
 ---
 
 ## 📋 Contenidos  
