@@ -77,7 +77,7 @@ for _ in range(100):
 ```
 
 ## 📊 Resultados Visuales
-![GIF tiempo real ](https://github.com/user-attachments/assets/5dfde69e-7698-4c7c-979e-566255bece01)
+![GIF tiempo real](https://github.com/user-attachments/assets/50f75076-d407-4cec-9bef-80225876c68a)
 
 
 ---
