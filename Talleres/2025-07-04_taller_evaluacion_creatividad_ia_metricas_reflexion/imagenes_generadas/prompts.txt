@@ -1,0 +1,3 @@
+prompt1_imagen1.png | a robot painting a self-portrait
+prompt2_imagen2.png | a surreal dreamscape with floating cities and neon lights
+prompt3_imagen3.png | a cyberpunk city at night with rain and neon reflections

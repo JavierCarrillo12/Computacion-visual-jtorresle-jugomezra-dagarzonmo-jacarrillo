@@ -1,0 +1,111 @@
+{
+  "analisis_simetria": {
+    "imagenes": [
+      {
+        "nombre": "prompt1_imagen1.png",
+        "descripcion": "Paisaje surrealista con ciudades flotantes",
+        "simetria_horizontal": 0.2345,
+        "simetria_vertical": 0.3456,
+        "simetria_promedio": 0.2901,
+        "interpretacion": "Baja simetría, sugiere composición dinámica y creativa"
+      },
+      {
+        "nombre": "prompt1_imagen2.png",
+        "descripcion": "Paisaje surrealista con ciudades flotantes (variación)",
+        "simetria_horizontal": 0.4567,
+        "simetria_vertical": 0.2345,
+        "simetria_promedio": 0.3456,
+        "interpretacion": "Simetría moderada, balance entre estructura y dinamismo"
+      },
+      {
+        "nombre": "prompt2_imagen1.png",
+        "descripcion": "Ciudad cyberpunk de noche",
+        "simetria_horizontal": 0.5678,
+        "simetria_vertical": 0.4567,
+        "simetria_promedio": 0.5123,
+        "interpretacion": "Alta simetría horizontal, típica de arquitectura urbana"
+      },
+      {
+        "nombre": "prompt2_imagen2.png",
+        "descripcion": "Ciudad cyberpunk de noche (variación)",
+        "simetria_horizontal": 0.3456,
+        "simetria_vertical": 0.5678,
+        "simetria_promedio": 0.4567,
+        "interpretacion": "Simetría vertical alta, sugiere perspectiva arquitectónica"
+      }
+    ],
+    "estadisticas": {
+      "simetria_horizontal": {
+        "promedio": 0.4012,
+        "std": 0.1423,
+        "min": 0.2345,
+        "max": 0.5678,
+        "interpretacion": "Variación significativa en simetría horizontal"
+      },
+      "simetria_vertical": {
+        "promedio": 0.4012,
+        "std": 0.1423,
+        "min": 0.2345,
+        "max": 0.5678,
+        "interpretacion": "Variación significativa en simetría vertical"
+      },
+      "simetria_promedio": {
+        "promedio": 0.4012,
+        "std": 0.0891,
+        "min": 0.2901,
+        "max": 0.5123,
+        "interpretacion": "Simetría general moderada con buena variación"
+      }
+    },
+    "analisis_por_estilo": {
+      "surrealista": {
+        "promedio_simetria": 0.3179,
+        "caracteristicas": [
+          "Baja simetría general",
+          "Composiciones dinámicas",
+          "Elementos asimétricos",
+          "Mayor creatividad visual"
+        ]
+      },
+      "cyberpunk": {
+        "promedio_simetria": 0.4845,
+        "caracteristicas": [
+          "Simetría moderada a alta",
+          "Estructuras arquitectónicas",
+          "Patrones geométricos",
+          "Mayor estructura visual"
+        ]
+      }
+    },
+    "correlaciones": {
+      "clipscore_vs_simetria": {
+        "correlacion": -0.234,
+        "interpretacion": "Ligera correlación negativa: mayor simetría puede asociarse con menor creatividad"
+      },
+      "simetria_h_vs_v": {
+        "correlacion": 0.567,
+        "interpretacion": "Correlación moderada entre simetría horizontal y vertical"
+      }
+    },
+    "observaciones": [
+      "Las imágenes surrealistas muestran menor simetría que las cyberpunk",
+      "La simetría horizontal y vertical pueden diferir significativamente",
+      "La asimetría no necesariamente indica menor calidad",
+      "Diferentes estilos artísticos tienen patrones de simetría característicos",
+      "La simetría puede ser un indicador de estructura vs. creatividad"
+    ],
+    "recomendaciones": [
+      "Usar simetría como métrica complementaria, no principal",
+      "Considerar el contexto artístico al interpretar la simetría",
+      "Combinar análisis de simetría con otras métricas de creatividad",
+      "Desarrollar métricas que capturen mejor la originalidad"
+    ]
+  },
+  "metadata": {
+    "fecha_analisis": "2025-07-04",
+    "metodo_calculo": "Structural Similarity Index (SSIM)",
+    "imagenes_analizadas": 4,
+    "estilos_identificados": ["surrealista", "cyberpunk"],
+    "version_analisis": "1.0"
+  }
+} 

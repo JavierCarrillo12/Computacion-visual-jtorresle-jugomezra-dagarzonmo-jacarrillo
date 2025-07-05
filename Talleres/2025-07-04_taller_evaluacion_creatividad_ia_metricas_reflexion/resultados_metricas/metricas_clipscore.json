@@ -1,0 +1,37 @@
+{
+  "clip_scores": [
+    {
+      "imagen": "prompt1_imagen1.png",
+      "descripcion": "Paisaje surrealista con ciudades flotantes",
+      "prompt": "a surreal dreamscape with floating cities and neon lights",
+      "clipscore": 0.5875338166952133
+    },
+    {
+      "imagen": "prompt1_imagen2.png",
+      "descripcion": "Paisaje surrealista con ciudades flotantes (variación)",
+      "prompt": "a surreal dreamscape with floating cities and neon lights",
+      "clipscore": 0.5855680778622627
+    },
+    {
+      "imagen": "prompt2_imagen1.png",
+      "descripcion": "Ciudad cyberpunk de noche",
+      "prompt": "a cyberpunk city at night with rain and neon reflections",
+      "clipscore": 0.5795823037624359
+    },
+    {
+      "imagen": "prompt2_imagen2.png",
+      "descripcion": "Ciudad cyberpunk de noche (variación)",
+      "prompt": "a cyberpunk city at night with rain and neon reflections",
+      "clipscore": 0.5834172517061234
+    }
+  ],
+  "simetria_scores": [],
+  "analisis_comparativo": {
+    "clipscore": {
+      "promedio": 0.5840253625065088,
+      "std": 0.002949567392514757,
+      "min": 0.5795823037624359,
+      "max": 0.5875338166952133
+    }
+  }
+}
