@@ -11,6 +11,12 @@ Evaluar la **calidad, coherencia y creatividad** de imágenes generadas por IA a
 
 ---
 
+## Imagenes Generadas
+
+![prompt1_imagen1](https://github.com/user-attachments/assets/f6dad598-d8da-4753-b5b9-17689c45e6fd)
+![prompt2_imagen2](https://github.com/user-attachments/assets/ed948d9d-7d36-4980-846b-f5082885a2db)
+![prompt3_imagen3](https://github.com/user-attachments/assets/ceb1ee91-7dd4-4304-84e3-f0fd083fafeb)
+
 ## 🧠 Conceptos Aprendidos
 
 Lista los principales conceptos aplicados:
