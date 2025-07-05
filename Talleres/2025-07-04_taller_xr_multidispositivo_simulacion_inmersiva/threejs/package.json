@@ -1,0 +1,40 @@
+{
+  "name": "xr-multidispositivo-simulacion-inmersiva",
+  "version": "1.0.0",
+  "description": "Experiencia inmersiva 3D compatible con WebXR y controles adaptativos",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server -p 3000 -c-1",
+    "dev": "live-server --port=3000",
+    "build": "echo 'No build step required for static files'"
+  },
+  "keywords": [
+    "threejs",
+    "webxr",
+    "vr",
+    "ar",
+    "immersive",
+    "3d",
+    "interactive"
+  ],
+  "author": "Computación Visual Team",
+  "license": "MIT",
+  "dependencies": {
+    "three": "^0.158.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-repo/xr-multidispositivo"
+  },
+  "bugs": {
+    "url": "https://github.com/your-repo/xr-multidispositivo/issues"
+  },
+  "homepage": "https://github.com/your-repo/xr-multidispositivo#readme"
+} 

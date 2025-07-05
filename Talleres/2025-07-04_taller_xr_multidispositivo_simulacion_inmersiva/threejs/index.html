@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XR Multidispositivo - Versión Simple</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            color: white;
+        }
+        
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+        }
+        
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+        }
+        
+        .status {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .warning {
+            color: #FF9800;
+        }
+    </style>
+</head>
+<body>
+    <div id="info">
+        <h3>🎮 XR Multidispositivo - Versión Simple</h3>
+        <p class="status">✅ Aplicación cargada</p>
+        <p>Objetos 3D interactivos</p>
+    </div>
+    
+    <div id="controls">
+        <h4>🎮 Controles:</h4>
+        <ul>
+            <li><strong>W/S:</strong> Movimiento adelante/atrás</li>
+            <li><strong>A/D:</strong> Movimiento lateral izquierda/derecha</li>
+            <li><strong>Q/E:</strong> Movimiento vertical arriba/abajo</li>
+            <li><strong>Flechas:</strong> Rotar cámara</li>
+            <li><strong>R:</strong> Resetear posición</li>
+        </ul>
+    </div>
+    
+    <!-- Three.js CDN -->
+    <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
+    
+    <!-- FlyControls (opcional) -->
+    <script src="https://unpkg.com/three@0.158.0/examples/js/controls/FlyControls.js"></script>
+    
+    <!-- Script principal simplificado -->
+    <script src="main-simple.js"></script>
+    
+    <script>
+        // Verificar carga de Three.js
+        if (typeof THREE !== 'undefined') {
+            console.log('✅ Three.js cargado correctamente');
+            document.querySelector('.status').textContent = '✅ Three.js cargado';
+        } else {
+            console.error('❌ Error: Three.js no se cargó');
+            document.querySelector('.status').textContent = '❌ Error: Three.js no cargado';
+            document.querySelector('.status').className = 'warning';
+        }
+        
+        // Verificar FlyControls
+        if (typeof FlyControls !== 'undefined') {
+            console.log('✅ FlyControls disponible');
+        } else {
+            console.log('⚠️ FlyControls no disponible');
+        }
+    </script>
+</body>
+</html> 

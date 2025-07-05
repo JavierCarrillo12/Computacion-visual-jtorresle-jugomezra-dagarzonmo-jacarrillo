@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Three.js</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        #info { position: absolute; top: 10px; left: 10px; color: white; font-family: Arial; }
+    </style>
+</head>
+<body>
+    <div id="info">Test Three.js - Cargando...</div>
+    
+    <!-- Three.js CDN -->
+    <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
+    
+    <script>
+        // Test simple de Three.js
+        console.log('Iniciando test de Three.js...');
+        
+        // Crear escena
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x000011);
+        
+        // Crear cámara
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+        
+        // Crear renderer
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        
+        // Crear un cubo simple
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+        
+        // Crear luz
+        const light = new THREE.AmbientLight(0x404040);
+        scene.add(light);
+        
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        directionalLight.position.set(1, 1, 1);
+        scene.add(directionalLight);
+        
+        // Función de animación
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            
+            renderer.render(scene, camera);
+        }
+        
+        // Manejar resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        
+        // Iniciar animación
+        animate();
+        
+        document.getElementById('info').textContent = 'Test Three.js - Funcionando ✅';
+        console.log('✅ Test de Three.js completado');
+    </script>
+</body>
+</html> 
