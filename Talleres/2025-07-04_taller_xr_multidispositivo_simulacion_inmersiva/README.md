@@ -11,6 +11,10 @@ Explorar y implementar una experiencia inmersiva 3D compatible con **WebXR** que
 
 ---
 
+## Resultados
+![2025-07-05-01-10-29](https://github.com/user-attachments/assets/337b13f8-2b05-4570-95fd-dd77dec338a9)
+
+
 ## 🧠 Conceptos Aprendidos
 
 Lista los principales conceptos aplicados:
@@ -171,7 +175,3 @@ Describe exactamente lo que hiciste tú:
 - [x] Commits descriptivos en inglés
 
 ---
-
-**Desarrollado por:** [Tu Nombre]  
-**Fecha:** 2025-07-04  
-**Tecnologías:** Three.js, WebXR, JavaScript, HTML5, CSS3 

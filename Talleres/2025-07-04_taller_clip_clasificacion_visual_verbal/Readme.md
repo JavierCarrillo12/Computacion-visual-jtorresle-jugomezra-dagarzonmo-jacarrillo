@@ -1,11 +1,11 @@
-# 🧪 Taller - Clasificacion Asistida Texto e Imagen CLIP.
+# 🧪 Taller - Visual y Verbal: Clasificación de Imágenes con CLIP
 
 ## 📅 Fecha
 `2025-07-04` – Fecha de realización
 
 ---
 ## 🎯 Objetivo del Taller
-Explorar cómo la combinación de texto descriptivo y visualización puede mejorar la clasificación de imágenes difíciles de interpretar, usando el modelo CLIP y comparándolo con clasificadores tradicionales entrenados desde cero. Este taller es ideal para aplicaciones en medicina (radiografías), arte (estilos pictóricos), moda (categorías de ropa) o diseño.
+Explorar el uso del modelo CLIP (Contrastive Language–Image Pre-training) de OpenAI para clasificar imágenes comparando representaciones de texto e imagen. Este taller permite comprender cómo vincular descripciones en lenguaje natural con imágenes, sin necesidad de entrenamiento adicional.
 
 ---
 ## 🧠 Conceptos Aprendidos
@@ -32,7 +32,7 @@ Especifica los entornos usados:
 ## 📁 Estructura del Proyecto
 
 ```
-2025-06-20_taller_clasificacion_asistida_clip/
+2025-06-20_taller_clip_clasificacion_visual_verbal/
 ├── images
 ├── resultados
 ├── Modelo_clasificacion_CLIP.ipynb
