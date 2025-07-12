@@ -110,28 +110,7 @@ private void HandleMouseInteraction()
 ---
 
 ## 📊 Resultados Visuales
-
-### 📌 Este taller **requiere explícitamente un GIF animado**:
-
-> ✅ Si tu taller lo indica, debes incluir **al menos un GIF** mostrando la ejecución o interacción.
-
-- Usa `Peek`, `ScreenToGif`, `OBS`, o desde Python (`imageio`) para generar el GIF.
-- **El nombre del GIF debe ser descriptivo del punto que estás presentando.**
-- Ejemplo correcto:  
-  `realidad_mixta_objetos_3d_superpuestos_video.gif`  
-  `interaccion_objetos_virtuales_mouse_unity.gif`  
-  `efecto_passthrough_webcam_objetos_flotantes.gif`
-
-🧭 [Ver guía para crear GIFs](./guia_generar_gif.md)
-
-```markdown
-![realidad_mixta](./resultados/realidad_mixta_objetos_3d_superpuestos_video.gif)
-```
-
-> ❌ No se aceptará la entrega si falta el GIF en talleres que lo requieren.
-
----
-
+![video](https://github.com/user-attachments/assets/b1b53fdf-a502-470d-84a0-a1e5fc98a4fe)
 ## 🧩 Prompts Usados
 
 Enumera los prompts utilizados:
