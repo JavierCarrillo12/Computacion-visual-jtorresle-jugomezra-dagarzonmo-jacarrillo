@@ -1,0 +1,144 @@
+# Configuración del Proyecto Unity - Realidad Mixta
+
+## Versión de Unity
+- Unity 2022.3 LTS o superior
+- Render Pipeline: Built-in Render Pipeline
+
+## Configuración de Calidad
+- Target Frame Rate: 60 FPS
+- VSync: Enabled
+- Anti Aliasing: 4x MSAA
+
+## Configuración de Audio
+- Sample Rate: 48000 Hz
+- DSP Buffer Size: Best Performance
+
+## Configuración de Input
+- Input System: Legacy Input System
+- Mouse Sensitivity: 1.0
+- Keyboard Shortcuts: Enabled
+
+## Configuración de Video
+- Video Player: Enabled
+- WebCam Support: Enabled
+- Video Codecs: H.264, MP4
+
+## Configuración de Cámara
+- Field of View: 60°
+- Near Clip Plane: 0.1
+- Far Clip Plane: 1000
+- Clear Flags: Solid Color
+- Background Color: Black
+
+## Configuración de Materiales
+- Shader: Standard
+- Rendering Mode: Transparent
+- Blend Mode: Alpha Blend
+
+## Configuración de Capas
+- Virtual Objects Layer: 8
+- Background Layer: 9
+- UI Layer: 5
+
+## Configuración de Físicas
+- Gravity: (0, -9.81, 0)
+- Default Material: None
+- Bounce Threshold: 2
+- Sleep Threshold: 0.005
+- Default Solver Iterations: 6
+
+## Configuración de Iluminación
+- Ambient Mode: Color
+- Ambient Color: (0.2, 0.2, 0.2)
+- Realtime Resolution: 2
+- Baked Resolution: 40
+- Mixed Resolution: 40
+
+## Configuración de Audio
+- Spatial Blend: 2D
+- Volume Rolloff: Logarithmic Rolloff
+- Doppler Level: 1
+- Default Speaker Mode: Stereo
+
+## Configuración de Time
+- Fixed Timestep: 0.02
+- Maximum Allowed Timestep: 0.33
+- Time Scale: 1
+- Maximum Particle Timestep: 0.03
+
+## Configuración de Player
+- Company Name: Computacion Visual
+- Product Name: Realidad Mixta Unity
+- Version: 1.0
+- Default Icon: None
+- Default Cursor: None
+
+## Configuración de Graphics
+- Color Space: Linear
+- Auto Graphics API: Enabled
+- Graphics APIs: DirectX11, OpenGLCore
+- Static Batching: Enabled
+- Dynamic Batching: Enabled
+- GPU Skinning: Enabled
+
+## Configuración de Memory
+- Memory Budget: 512
+- Texture Quality: Full Res
+- Anisotropic Textures: Per Texture
+- Soft Particles: Enabled
+- Realtime Reflection Probes: Enabled
+- Billboards Face Camera Position: Enabled
+
+## Configuración de Network
+- Network Reachability: Reachable
+- Network Security: Not Required
+
+## Configuración de Editor
+- Asset Serialization: Force Text
+- Version Control Mode: Visible Meta Files
+- Asset Meta Files: Enabled
+- Texture Compression: Normal Quality
+- Sprite Packer: Disabled
+- Addressable Assets: Disabled
+
+## Configuración de Scripting
+- Scripting Backend: Mono
+- API Compatibility Level: .NET 4.x
+- Scripting Define Symbols: None
+- Scripting Runtime Version: Latest (.NET 4.x Equivalent)
+
+## Configuración de Optimization
+- Static Batching: Enabled
+- Dynamic Batching: Enabled
+- GPU Skinning: Enabled
+- Graphics Jobs: Disabled
+- Graphics Jobs (Experimental): Disabled
+- SRP Batcher: Disabled
+
+## Configuración de XR
+- Virtual Reality Supported: Disabled
+- AR Supported: Disabled
+- VR SDKs: None
+- AR SDKs: None
+
+## Configuración de Package Manager
+- Registry: Unity Registry
+- Scoped Registries: None
+- Package Resolution: Resolve Dependencies
+
+## Configuración de Version Control
+- Mode: Visible Meta Files
+- Collab Editor Settings: Disabled
+- Asset Serialization: Force Text
+- Version Control: None
+
+## Configuración de Build
+- Target Platform: Standalone
+- Target Architecture: x86_64
+- Scripting Backend: Mono
+- API Compatibility: .NET 4.x
+- Compression Method: LZ4HC
+- Development Build: Disabled
+- Script Debugging: Disabled
+- Deep Profiling Support: Disabled
+- Script Optimization: Disabled 
