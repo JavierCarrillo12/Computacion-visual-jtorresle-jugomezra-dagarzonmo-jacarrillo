@@ -1,7 +1,7 @@
 # 🧪 Exploración de Dispositivos de Realidad Extendida (XR)
 
 ## 📅 Fecha
-`2025-07-12` – Taller Práctico 3 de Computación Visual
+`2025-07-12` – Taller Práctico 5 de Computación Visual
 
 ---
 
