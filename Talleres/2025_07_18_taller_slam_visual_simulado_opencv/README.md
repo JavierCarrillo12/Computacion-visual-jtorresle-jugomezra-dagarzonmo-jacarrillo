@@ -94,6 +94,8 @@ for fname in sorted(image_list):
 
 ## 📊 Resultados Visuales
 
+![Rastreo de puntos y gráficos](https://github.com/user-attachments/assets/a11d0950-27e0-4eea-81d3-c55d9431fd19)
+
 
 ---
 
